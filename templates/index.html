@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Get Chucked!!</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      :root {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f3f4f6;
+      }
+
+      body {
+        margin: 0;
+        padding: 40px 12px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .logo-bar {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
+      }
+      .logo-bar img {
+        height: 60px;
+        width: auto;
+      }
+
+      .app-shell {
+        width: 100%;
+        max-width: 900px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+        padding: 32px;
+      }
+
+      h1 {
+        text-align: center;
+        margin: 0 0 8px;
+        font-size: 2rem;
+        letter-spacing: 0.03em;
+      }
+
+      .subtitle {
+        text-align: center;
+        color: #6b7280;
+        margin-bottom: 24px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+        gap: 24px;
+      }
+      @media (max-width: 800px) {
+        .grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+      }
+
+      .card {
+        border-radius: 14px;
+        border: 1px solid #e5e7eb;
+        padding: 18px 20px 20px;
+      }
+
+      .card h2 {
+        font-size: 1.1rem;
+        margin: 0 0 8px;
+      }
+
+      .label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+        color: #6b7280;
+        margin-bottom: 6px;
+      }
+
+      .field {
+        margin-bottom: 10px;
+      }
+
+      input,
+      textarea,
+      select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid #d1d5db;
+        font: inherit;
+        outline: none;
+        transition: border 0.15s, box-shadow 0.15s, background 0.15s;
+        background: #fff;
+      }
+
+      input:focus,
+      textarea:focus,
+      select:focus {
+        border-color: #6366f1;
+        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.2);
+        background: #f9fafb;
+      }
+
+      textarea {
+        min-height: 60px;
+        resize: vertical;
+      }
+
+      .btn-row {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 4px;
+      }
+
+      button {
+        appearance: none;
+        border: none;
+        padding: 7px 14px;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        background: #111827;
+        color: white;
+        transition: background 0.15s, transform 0.1s, box-shadow 0.1s;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      button.secondary {
+        background: #e5e7eb;
+        color: #111827;
+      }
+
+      button:disabled {
+        opacity: 0.5;
+        cursor: default;
+        box-shadow: none;
+        transform: none;
+      }
+
+      button:not(:disabled):hover {
+        background: #4f46e5;
+        box-shadow: 0 5px 15px rgba(79, 70, 229, 0.35);
+        transform: translateY(-1px);
+      }
+
+      button.secondary:not(:disabled):hover {
+        background: #d1d5db;
+        box-shadow: 0 5px 12px rgba(17, 24, 39, 0.1);
+      }
+
+      .status {
+        margin-top: 8px;
+        min-height: 1.2em;
+        font-size: 0.9rem;
+      }
+      .status.success { color: #059669; }
+      .status.error { color: #dc2626; }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.72rem;
+        background: #eef2ff;
+        color: #4f46e5;
+        margin-left: 6px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 2px 8px;
+        border-radius: 999px;
+        font-size: 0.74rem;
+        background: #f3f4f6;
+        color: #4b5563;
+      }
+
+      .pill.online {
+        background: #ecfdf5;
+        color: #059669;
+      }
+
+      .pill-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #10b981;
+      }
+
+      .jokes-list {
+        margin-top: 8px;
+        max-height: 340px;
+        overflow-y: auto;
+        padding-right: 4px;
+      }
+
+      .joke-card {
+        border-radius: 10px;
+        background: #f9fafb;
+        padding: 10px 11px;
+        margin-bottom: 8px;
+        font-size: 0.9rem;
+        border: 1px solid #e5e7eb;
+      }
+
+      .joke-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 5px;
+        font-size: 0.75rem;
+        color: #6b7280;
+      }
+
+      .empty-state {
+        font-size: 0.9rem;
+        color: #9ca3af;
+        margin-top: 6px;
+      }
+
+      .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 16px;
+      }
+    </style>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+
+  <body>
+    <div class="logo-bar">
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Get Chucked logo" />
+    </div>
+
+    <div id="root"></div>
+
+    {% raw %}
+    <script type="text/babel">
+      const { useEffect, useMemo, useState } = React;
+      const baseUrl = ""; // same origin as Flask
+
+      function App() {
+        // Auth + UI state
+        const [username, setUsername] = useState("");
+        const [password, setPassword] = useState("");
+        const [token, setToken] = useState(null);
+        const [currentUser, setCurrentUser] = useState(null);
+
+        // Data state
+        const [jokes, setJokes] = useState([]);
+        const [newJoke, setNewJoke] = useState("");
+        const [categories, setCategories] = useState([]);
+        const [selectedCategory, setSelectedCategory] = useState("");
+
+        // UX state
+        const [status, setStatus] = useState({ type: null, msg: "" });
+        const [loading, setLoading] = useState(false);
+
+        const authHeaders = useMemo(() => {
+          return token ? { Authorization: "Bearer " + token } : {};
+        }, [token]);
+
+        function setStatusMsg(type, msg) {
+          setStatus({ type, msg });
+        }
+
+        async function apiFetch(path, options = {}) {
+          const res = await fetch(baseUrl + path, options);
+          const data = await res.json().catch(() => ({}));
+          return { res, data };
+        }
+
+        // Load categories automatically whenever we get a token.
+        useEffect(() => {
+          if (!token) {
+            setCategories([]);
+            setSelectedCategory("");
+            return;
+          }
+
+          (async () => {
+            try {
+              const { res, data } = await apiFetch("/categories", { headers: authHeaders });
+              if (!res.ok) return; // keep UI clean; optional: show status
+              setCategories(Array.isArray(data.categories) ? data.categories : []);
+            } catch (_) {
+              // ignore network blips; category dropdown can stay minimal
+            }
+          })();
+        }, [token, authHeaders]);
+
+        async function registerUser() {
+          setStatusMsg(null, "");
+          if (!username || !password) return setStatusMsg("error", "Please enter username and password");
+
+          setLoading(true);
+          try {
+            const { res, data } = await apiFetch("/auth/register", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            });
+
+            if (!res.ok) return setStatusMsg("error", data.error || "Registration failed");
+            setStatusMsg("success", data.message || "User created");
+          } catch {
+            setStatusMsg("error", "Network error while registering");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        async function loginUser() {
+          setStatusMsg(null, "");
+          if (!username || !password) return setStatusMsg("error", "Please enter username and password");
+
+          setLoading(true);
+          try {
+            const { res, data } = await apiFetch("/auth/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            });
+
+            if (!res.ok) {
+              setToken(null);
+              setCurrentUser(null);
+              return setStatusMsg("error", data.error || "Login failed");
+            }
+
+            // Store identity locally for UI only (JWT is the real auth)
+            setToken(data.access_token);
+            setCurrentUser(username);
+            setStatusMsg("success", "Logged in successfully");
+          } catch {
+            setStatusMsg("error", "Network error while logging in");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        async function fetchRandomJoke() {
+          setStatusMsg(null, "");
+          if (!token) return setStatusMsg("error", "Please log in first");
+
+          setLoading(true);
+          try {
+            const qs = selectedCategory
+              ? `?category=${encodeURIComponent(selectedCategory)}`
+              : "";
+            const { res, data } = await apiFetch("/random" + qs, { headers: authHeaders });
+
+            if (!res.ok) return setStatusMsg("error", data.error || "Failed to fetch joke");
+
+            setStatusMsg("success", "Fetched a new Chuck Norris fact");
+            await listJokes(false);
+          } catch {
+            setStatusMsg("error", "Network error while fetching joke");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        async function listJokes(showStatus = true) {
+          setStatusMsg(null, "");
+          if (!token) return setStatusMsg("error", "Please log in first");
+
+          setLoading(true);
+          try {
+            const { res, data } = await apiFetch("/jokes", { headers: authHeaders });
+            if (!res.ok) return setStatusMsg("error", data.error || "Failed to fetch jokes");
+
+            const items = Array.isArray(data.jokes) ? data.jokes : [];
+            setJokes(items);
+            if (showStatus) setStatusMsg("success", "Loaded " + items.length + " jokes");
+          } catch {
+            setStatusMsg("error", "Network error while loading jokes");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        async function submitJoke() {
+          setStatusMsg(null, "");
+          if (!token) return setStatusMsg("error", "Please log in first");
+
+          const trimmed = newJoke.trim();
+          if (!trimmed) return setStatusMsg("error", "Please write a joke first");
+
+          setLoading(true);
+          try {
+            const { res, data } = await apiFetch("/jokes", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", ...authHeaders },
+              body: JSON.stringify({ value: trimmed }),
+            });
+
+            if (!res.ok) return setStatusMsg("error", data.error || "Failed to submit joke");
+
+            setNewJoke("");
+            setStatusMsg("success", "Joke submitted");
+            await listJokes(false);
+          } catch {
+            setStatusMsg("error", "Network error while submitting joke");
+          } finally {
+            setLoading(false);
+          }
+        }
+        async function updateJoke(id, value) {
+          setStatusMsg(null, "");
+          setLoading(true);
+          try {
+            const { res, data } = await apiFetch(`/jokes/${id}`, {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                ...authHeaders,
+              },
+              body: JSON.stringify({ value }),
+            });
+
+            if (!res.ok) return setStatusMsg("error", data.error || "Update failed");
+            setStatusMsg("success", "Joke updated");
+          } catch {
+            setStatusMsg("error", "Network error while updating joke");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        async function deleteJoke(id) {
+          setStatusMsg(null, "");
+          setLoading(true);
+          try {
+            const { res, data } = await apiFetch(`/jokes/${id}`, {
+              method: "DELETE",
+              headers: authHeaders,
+            });
+
+            if (!res.ok) return setStatusMsg("error", data.error || "Delete failed");
+
+            setJokes((prev) => prev.filter((j) => j.id !== id));
+            setStatusMsg("success", "Joke deleted");
+          } catch {
+            setStatusMsg("error", "Network error while deleting joke");
+          } finally {
+            setLoading(false);
+          }
+        }
+
+        function logout() {
+          setToken(null);
+          setCurrentUser(null);
+          setJokes([]);
+          setStatusMsg("success", "Logged out");
+        }
+
+        return (
+          <div className="app-shell">
+            <div className="header-row">
+              <div>
+                <h1>Get Chucked!!</h1>
+                <div className="subtitle">
+                  Tiny cloud app with REST API, JWT auth, external jokes service
+                </div>
+              </div>
+              <div className={"pill " + (currentUser ? "online" : "")}>
+                <span className="pill-dot" style={{ background: currentUser ? "#10b981" : "#9ca3af" }} />
+                {currentUser ? `Online as ${currentUser}` : "Not logged in"}
+              </div>
+            </div>
+
+            <div className="grid">
+              <div className="card">
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                  <h2>Register / Login</h2>
+                  <span className="badge">JWT + Hashed passwords</span>
+                </div>
+
+                <div className="field">
+                  <div className="label">Username</div>
+                  <input
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    placeholder="Choose a username"
+                    autoComplete="off"
+                  />
+                </div>
+
+                <div className="field">
+                  <div className="label">Password</div>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter a password"
+                  />
+                </div>
+
+                <div className="btn-row">
+                  <button onClick={registerUser} disabled={loading}>Register</button>
+                  <button className="secondary" onClick={loginUser} disabled={loading}>Login</button>
+                  {token && (
+                    <button className="secondary" onClick={logout} disabled={loading}>Log out</button>
+                  )}
+                </div>
+
+                <div className={"status " + (status.type || "")}>
+                  {status.msg}
+                </div>
+              </div>
+
+              <div className="card">
+                <h2>Actions</h2>
+                <div className="label">Chuck Norris jokes (external API)</div>
+
+                <div className="field">
+                  <div className="label">Category</div>
+                  <select
+                    value={selectedCategory}
+                    onChange={(e) => setSelectedCategory(e.target.value)}
+                    disabled={!token || loading}
+                  >
+                    <option value="">Any</option>
+                    {categories.map((c) => (
+                      <option key={c} value={c}>
+                        {c.charAt(0).toUpperCase() + c.slice(1)}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="btn-row">
+                  <button onClick={fetchRandomJoke} disabled={loading || !token}>Fetch Random Joke</button>
+                  <button className="secondary" onClick={() => listJokes()} disabled={loading || !token}>
+                    List All Jokes
+                  </button>
+                </div>
+
+                <hr style={{ margin: "16px 0", border: 0, borderTop: "1px solid #e5e7eb" }} />
+
+                <h2>Add Your Own Joke</h2>
+                <div className="field">
+                  <textarea
+                    value={newJoke}
+                    onChange={(e) => setNewJoke(e.target.value)}
+                    placeholder="Type your joke here"
+                  />
+                </div>
+                <button onClick={submitJoke} disabled={loading || !token}>Submit Joke</button>
+              </div>
+            </div>
+
+            <div className="card" style={{ marginTop: 20 }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <h2>Stored Jokes</h2>
+                <span className="pill">
+                  <span className="pill-dot" style={{ background: "#6366f1" }} />
+                  {jokes.length} jokes for {currentUser ? currentUser : "no user"}
+                </span>
+              </div>
+
+              {jokes.length === 0 ? (
+                <div className="empty-state">No jokes yet. Fetch a random one or add your own.</div>
+              ) : (
+                <div className="jokes-list">
+                  {jokes.map((j) => (
+                  <div className="joke-card">
+                    <div className="joke-meta">
+                      <span>#{j.id}</span>
+                      {j.category && <span>{j.category}</span>}
+                    </div>
+
+                    <textarea
+                      value={j.value}
+                      onChange={(e) =>
+                        setJokes((prev) =>
+                          prev.map((x) =>
+                            x.id === j.id ? { ...x, value: e.target.value } : x
+                          )
+                        )
+                      }
+                    />
+
+                    <div className="btn-row">
+                      <button
+                        className="secondary"
+                        onClick={() => updateJoke(j.id, j.value)}
+                        disabled={loading}
+                      >
+                        Update
+                      </button>
+
+                      <button
+                        className="secondary"
+                        onClick={() => deleteJoke(j.id)}
+                        disabled={loading}
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+        );
+      }
+
+      ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+    </script>
+    {% endraw %}
+  </body>
+</html>
