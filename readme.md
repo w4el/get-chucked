@@ -124,7 +124,7 @@ A local venv is created during setup (instructions below).
 ### 1) Clone the repository and enter the folder
 
 ```powershell
-git clone <REPO_URL>
+git clone https://github.com/w4el/get-chucked
 cd cloud_app_with_ui
 ```
 
@@ -210,6 +210,7 @@ Invoke-RestMethod -Method GET -Uri "https://localhost:5000/jokes" -Headers @{
 ---
 
 Thats it Get Chucked!! :)
+
 
 
 
