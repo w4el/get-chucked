@@ -29,7 +29,7 @@ A simple single-page web UI (React via CDN) is included to demonstrate the featu
 
 ## Coursework Requirements Mapping
 
-### 1) REST API providing CRUD operations (3 points)
+### 1) REST API providing CRUD operations
 
 The application exposes REST endpoints with meaningful status codes and JSON responses.
 
@@ -60,7 +60,7 @@ Fetched jokes are stored in the database and associated with the authenticated u
 
 ---
 
-### 3) External cloud database persistence (3 points)
+### 3) External cloud database persistence
 
 Persistent storage is provided by **Heroku Postgres (managed PostgreSQL)**.
 
@@ -73,14 +73,14 @@ Stored entities include:
 
 ---
 
-### 4) Documentation (1 point)
+### 4) Documentation
 
 - Code includes docstrings and human-readable comments where applicable
 - This README documents setup, endpoints, and how the project meets the marking criteria
 
 ---
 
-## Option 2 Features (extra marks)
+## Option 2 Features
 
 This project demonstrates Option 2 items:
 - **Serving the application over HTTPS (demo)** using development certificates (`cert.pem` / `key.pem`)
@@ -209,22 +209,7 @@ Invoke-RestMethod -Method GET -Uri "https://localhost:5000/jokes" -Headers @{
 
 ---
 
-## Video Demonstration Plan (≤ 15 minutes)
+Thats it Get Chucked!! :)
 
-Suggested split aligned with the guidance:
-
-* 2–3 min: External REST integration (`/categories`, `/random`, category filter)
-* 2–3 min: CRUD operations (`POST/GET/PUT/DELETE /jokes`) via UI + one API call
-* 3–4 min: Cloud database persistence (data persists after app restart)
-* 4–5 min: Option 2 features (HTTPS + password hashing + JWT access control)
-
----
-
-## Submission
-
-Submit:
-
-* Git repository link
-* Video link (YouTube/Drive/other)
 
 
