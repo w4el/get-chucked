@@ -103,7 +103,6 @@ This project demonstrates Option 2 items:
 ## Project Structure
 
 ```text
-cloud_app_with_ui/
 ├── app.py
 ├── config.py
 ├── models.py
