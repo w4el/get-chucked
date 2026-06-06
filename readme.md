@@ -124,7 +124,7 @@ A local venv is created during setup (instructions below).
 
 ```powershell
 git clone https://github.com/w4el/get-chucked
-cd cloud_app_with_ui
+cd get-chucked
 ```
 
 ### 2) Create and activate a virtual environment
