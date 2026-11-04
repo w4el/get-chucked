@@ -1,0 +1,15 @@
+# Secrets and certificates
+.env
+*.pem
+*.key
+*.crt
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# Local databases
+*.db
+instance/
